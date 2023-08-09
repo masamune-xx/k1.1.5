@@ -6,34 +6,30 @@ import jm.task.core.jdbc.model.User;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    UserDao userDao = new UserDaoJDBCImpl();
+    private static final UserDao UD = new UserDaoJDBCImpl();
 
     public void createUsersTable() {
-        userDao.createUsersTable();
-        System.out.println("Table created.");
+        UD.createUsersTable();
     }
 
     public void dropUsersTable() {
-        userDao.dropUsersTable();
-        System.out.println("Table deleted.");
+        UD.dropUsersTable();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        userDao.saveUser(name, lastName, age);
+        UD.saveUser(name, lastName, age);
         System.out.println("User с именем – " + name + " добавлен в базу данных");
     }
 
     public void removeUserById(long id) {
-        userDao.removeUserById(id);
-        System.out.println("User с id – " + id + " удалён из базы данных");
+        UD.removeUserById(id);
     }
 
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return UD.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        userDao.cleanUsersTable();
-        System.out.println("Table truncated.");
+        UD.cleanUsersTable();
     }
 }
