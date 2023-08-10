@@ -17,7 +17,13 @@ public class UserDaoJDBCImpl implements UserDao {
         String sql = "create table if not exists users (id bigint not null auto_increment, name varchar(64), last_name varchar(64), age int, primary key(id))";
         try (Statement statement = CONNECTION.createStatement()) {
             statement.executeUpdate(sql);
+            CONNECTION.commit();
         } catch (SQLException e) {
+            try {
+                CONNECTION.rollback();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
             e.printStackTrace();
         }
     }
@@ -26,7 +32,13 @@ public class UserDaoJDBCImpl implements UserDao {
         String sql = "drop table if exists users";
         try (Statement statement = CONNECTION.createStatement()) {
             statement.executeUpdate(sql);
+            CONNECTION.commit();
         } catch (SQLException e) {
+            try {
+                CONNECTION.rollback();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
             e.printStackTrace();
         }
     }
@@ -38,7 +50,14 @@ public class UserDaoJDBCImpl implements UserDao {
             ps.setString(2, lastName);
             ps.setByte(3, age);
             ps.executeUpdate();
+            CONNECTION.commit();
+
         } catch (SQLException e) {
+            try {
+                CONNECTION.rollback();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
             e.printStackTrace();
         }
     }
@@ -48,7 +67,13 @@ public class UserDaoJDBCImpl implements UserDao {
         try (PreparedStatement ps = CONNECTION.prepareStatement(sql)) {
             ps.setLong(1, id);
             ps.executeUpdate();
+            CONNECTION.commit();
         } catch (SQLException e) {
+            try {
+                CONNECTION.rollback();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
             e.printStackTrace();
         }
     }
@@ -77,7 +102,13 @@ public class UserDaoJDBCImpl implements UserDao {
         String sql = "truncate table users";
         try (Statement statement = CONNECTION.createStatement()) {
             statement.executeUpdate(sql);
+            CONNECTION.commit();
         } catch (SQLException e) {
+            try {
+                CONNECTION.rollback();
+            } catch (SQLException ex) {
+                e.printStackTrace();
+            }
             e.printStackTrace();
         }
     }

@@ -13,6 +13,7 @@ public class Util {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASS);
+            connection.setAutoCommit(false);
             System.out.println("Подключено к БД");
         } catch (SQLException e) {
             System.err.println("Ошибка подключения к БД");
