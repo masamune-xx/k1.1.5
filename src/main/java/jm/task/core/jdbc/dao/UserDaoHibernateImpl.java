@@ -18,7 +18,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         String sql = "create table if not exists users (id bigint not null auto_increment, name varchar(64), last_name varchar(64), age int, primary key(id))";
         Transaction tx = null;
-        try (Session session = Util.getSessionFactory().getCurrentSession()){
+        try (Session session = Util.getSessionFactory().getCurrentSession()) {
             tx = session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
             tx.commit();
@@ -32,7 +32,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         String sql = "drop table if exists users";
         Transaction tx = null;
-        try (Session session = Util.getSessionFactory().getCurrentSession()){
+        try (Session session = Util.getSessionFactory().getCurrentSession()) {
             tx = session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
             tx.commit();
@@ -45,7 +45,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void saveUser(String name, String lastName, byte age) {
         Transaction tx = null;
-        try (Session session = Util.getSessionFactory().getCurrentSession()){
+        try (Session session = Util.getSessionFactory().getCurrentSession()) {
             tx = session.beginTransaction();
             session.save(new User(name, lastName, age));
             tx.commit();
@@ -58,7 +58,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void removeUserById(long id) {
         Transaction tx = null;
-        try (Session session = Util.getSessionFactory().getCurrentSession()){
+        try (Session session = Util.getSessionFactory().getCurrentSession()) {
             tx = session.beginTransaction();
             session.delete(session.get(User.class, id));
             tx.commit();
@@ -84,7 +84,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void cleanUsersTable() {
         String sql = "truncate table users";
         Transaction tx = null;
-        try (Session session = Util.getSessionFactory().getCurrentSession()){
+        try (Session session = Util.getSessionFactory().getCurrentSession()) {
             tx = session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
             tx.commit();
